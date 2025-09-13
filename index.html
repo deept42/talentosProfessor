@@ -4,116 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesquisa de Experiência – Alunos Talentos</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Configurações Globais */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
-            color: #333333;
+        /* ==========================================================================
+           1. ESTILOS GLOBAIS E VARIÁVEIS (CSS PROFISSIONAL)
+           ========================================================================== */
+        
+        :root {
+            /* Paleta de Cores Principal (fácil de alterar) */
+            --color-primary: #006400; /* Verde Principal */
+            --color-primary-dark: #004d00;
+            --color-text-primary: #333333;
+            --color-text-secondary: #555555;
+            --color-background-body: #f0f0f0;
+            --color-background-container: #ffffff;
+            --color-background-alt: #f8f8f8;
+            --color-border: #e0e0e0;
+            --font-main: 'Poppins', sans-serif;
+            
+            /* Paleta de Cores para Avaliações */
+            --color-rating-1: #e74c3c; /* Vermelho */
+            --color-rating-2: #e67e22; /* Laranja */
+            --color-rating-3: #f1c40f; /* Amarelo */
+            --color-rating-4: #a3d900; /* Verde Claro */
+            --color-rating-5: #2ecc71; /* Verde */
+        }
+        
+        /* Reset e Configurações Globais */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background-body);
+            color: var(--color-text-primary);
             padding: 20px;
             line-height: 1.6;
         }
-
+        
+        /* ==========================================================================
+           2. LAYOUT E COMPONENTES
+           ========================================================================== */
+        
         /* Container Principal */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #ffffff;
+            background-color: var(--color-background-container);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         /* Cabeçalho */
-        header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 20px; margin-bottom: 20px; }
+        .survey-header { text-align: center; border-bottom: 2px solid var(--color-border); padding-bottom: 20px; margin-bottom: 20px; }
         .logo { max-width: 240px; margin-bottom: 20px; }
-        header h1 { color: #006400; font-size: 2em; font-weight: 700; }
-        header p { font-size: 1.1em; color: #555555; }
-        .anonymous strong { color: #d9534f; }
+        .survey-header h1 { color: var(--color-primary); font-size: 2em; font-weight: 700; }
+        .survey-header p { font-size: 1.1em; color: var(--color-text-secondary); }
+        .anonymous-notice strong { color: var(--color-rating-1); }
 
-        /* Instruções e Legenda */
-        .instructions { text-align: center; background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
+        /* Bloco de Instruções */
+        .instructions { text-align: center; background-color: var(--color-background-alt); padding: 15px; border-radius: 8px; margin-bottom: 30px; }
         .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 10px; font-size: 0.9em; }
-        .legend span { background-color: #fff; padding: 5px 10px; border-radius: 20px; border: 1px solid #ddd; }
+        .legend span { background-color: var(--color-background-container); padding: 5px 10px; border-radius: 20px; border: 1px solid var(--color-border); }
         
-        /* Formulário e Seções */
-        form { width: 100%; }
+        /* Formulário e Seções (Fieldset) */
+        .survey-form { width: 100%; }
         fieldset { border: none; padding: 0; margin-bottom: 25px; }
-        legend { font-size: 1.5em; font-weight: 600; color: #006400; margin-bottom: 20px; padding-bottom: 5px; border-bottom: 2px solid #006400; width: 100%; }
+        legend { font-size: 1.5em; font-weight: 600; color: var(--color-primary); margin-bottom: 20px; padding-bottom: 5px; border-bottom: 2px solid var(--color-primary); width: 100%; }
 
-        /* Estilo das Perguntas */
-        .question, .question-text { background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e0e0; }
-        .question label, .question-text label { display: block; font-weight: 600; margin-bottom: 15px; color: #333; }
+        /* Caixas de Perguntas */
+        .question-box { background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--color-border); }
+        .question-box label { display: block; font-weight: 600; margin-bottom: 15px; }
+        
+        /* Opções de Resposta (1-5) */
         .options { display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
-        .options label { cursor: pointer; padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; background-color: #fff; transition: all 0.2s ease-in-out; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
-        .options label:hover { background-color: #e9e9e9; transform: translateY(-2px); }
+        .options label { cursor: pointer; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--color-border); background-color: var(--color-background-container); transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
+        .options label:hover { transform: translateY(-3px); }
         .options label:active { transform: scale(0.95); box-shadow: 0 0 12px rgba(0, 100, 0, 0.5); }
         .options input[type="radio"] { display: none; }
         
-        /* Estilos de cores progressivas para opções marcadas */
-        .options input[value="1"]:checked + label {
-            background-color: #e74c3c; /* Vermelho */
-            color: white;
-            border-color: #c0392b;
-            transform: scale(1.05);
-        }
-        .options input[value="2"]:checked + label {
-            background-color: #e67e22; /* Laranja */
-            color: white;
-            border-color: #d35400;
-            transform: scale(1.05);
-        }
-        .options input[value="3"]:checked + label {
-            background-color: #f1c40f; /* Amarelo */
-            color: #333; /* Texto escuro para legibilidade */
-            border-color: #f39c12;
-            transform: scale(1.05);
-        }
-        .options input[value="4"]:checked + label {
-            background-color: #a3d900; /* Verde Claro */
-            color: #333; /* Texto escuro para legibilidade */
-            border-color: #82a832;
-            transform: scale(1.05);
-        }
-        .options input[value="5"]:checked + label {
-            background-color: #2ecc71; /* Verde */
-            color: white;
-            border-color: #27ae60;
-            transform: scale(1.05);
-        }
+        /* Estilos das opções selecionadas */
+        .options input[value="1"]:checked + label { background-color: var(--color-rating-1); color: white; border-color: transparent; transform: scale(1.05); }
+        .options input[value="2"]:checked + label { background-color: var(--color-rating-2); color: white; border-color: transparent; transform: scale(1.05); }
+        .options input[value="3"]:checked + label { background-color: var(--color-rating-3); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
+        .options input[value="4"]:checked + label { background-color: var(--color-rating-4); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
+        .options input[value="5"]:checked + label { background-color: var(--color-rating-5); color: white; border-color: transparent; transform: scale(1.05); }
 
-        textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 1em; box-sizing: border-box; }
-        textarea:focus { outline: none; border-color: #006400; box-shadow: 0 0 5px rgba(0, 100, 0, 0.5); }
+        /* Campos de Texto (Textarea) */
+        textarea { width: 100%; padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; font-family: var(--font-main); font-size: 1em; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+        textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 5px rgba(0, 100, 0, 0.5); }
 
-        button[type="submit"] { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; font-size: 1.2em; font-weight: 600; color: #fff; background-color: #25D366; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; margin-top: 20px; }
-        button[type="submit"]:hover { background-color: #1DA851; }
+        /* Botão de Envio */
+        .submit-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; font-size: 1.2em; font-weight: 600; color: white; background-color: #25D366; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; margin-top: 20px; }
+        .submit-btn:hover { background-color: #1DA851; }
         
-        footer { text-align: center; margin-top: 30px; color: #888; font-size: 0.9em; }
+        /* Rodapé */
+        .survey-footer { text-align: center; margin-top: 30px; color: #888; font-size: 0.9em; }
+        
+        /* ==========================================================================
+           3. RESPONSIVIDADE (Mobile-First)
+           ========================================================================== */
+        
         @media (max-width: 600px) {
             body { padding: 10px; }
             .container { padding: 20px; }
-            header h1 { font-size: 1.5em; }
+            .survey-header h1 { font-size: 1.5em; }
             .legend { flex-direction: column; align-items: center; }
             .options { justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <main class="container">
+        <header class="survey-header">
             <img src="https://talentosbrasil.com.br/img/logotipo/logotipo.png" alt="Logotipo Talentos" class="logo">
             <h1>Pesquisa de Experiência e Aprendizado – Alunos Talentos</h1>
-            <p>Olá! Sua opinião é muito importante para nós. Queremos saber como está sendo sua experiência na Talentos para podermos melhorar cada vez mais.</p>
-            <p class="anonymous"><strong>Suas respostas são anônimas!</strong></p>
+            <p>Olá! A sua opinião é muito importante para nós. Queremos saber como está a ser a sua experiência na Talentos para podermos melhorar cada vez mais.</p>
+            <p class="anonymous-notice"><strong>As suas respostas são anónimas!</strong></p>
         </header>
 
-        <div class="instructions">
-            <p>Para cada pergunta, escolha a nota que melhor representa sua opinião, usando os emojis como guia:</p>
+        <section class="instructions">
+            <p>Para cada pergunta, escolha a nota que melhor representa a sua opinião, usando os emojis como guia:</p>
             <div class="legend">
                 <span><strong>1</strong> = 😞 (Péssimo / Nunca)</span>
                 <span><strong>2</strong> = 🙁 (Ruim / Pouco)</span>
@@ -121,13 +140,13 @@
                 <span><strong>4</strong> = 🙂 (Bom / Quase Sempre)</span>
                 <span><strong>5</strong> = 😄 (Excelente / Sempre)</span>
             </div>
-        </div>
+        </section>
 
-        <form id="survey-form">
+        <form id="survey-form" class="survey-form" novalidate>
             <fieldset>
                 <legend>Parte 1: Sobre o seu Aprendizado</legend>
-                <div class="question">
-                    <label>Sinto que estou realmente aprendendo e evoluindo nas matérias.</label>
+                <div class="question-box">
+                    <label>Sinto que estou realmente a aprender e a evoluir nas matérias.</label>
                     <div class="options">
                         <label><input type="radio" name="aprendizado_evolucao" value="1" required> 😞 1</label>
                         <label><input type="radio" name="aprendizado_evolucao" value="2"> 🙁 2</label>
@@ -136,8 +155,8 @@
                         <label><input type="radio" name="aprendizado_evolucao" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
-                    <label>Consigo entender bem as explicações dos professores em sala de aula.</label>
+                <div class="question-box">
+                    <label>Consigo entender bem as explicações dos professores na sala de aula.</label>
                     <div class="options">
                         <label><input type="radio" name="entendimento_explicacoes" value="1" required> 😞 1</label>
                         <label><input type="radio" name="entendimento_explicacoes" value="2"> 🙁 2</label>
@@ -146,8 +165,8 @@
                         <label><input type="radio" name="entendimento_explicacoes" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
-                    <label>As tarefas e os trabalhos de casa me ajudam a entender melhor o conteúdo.</label>
+                <div class="question-box">
+                    <label>As tarefas e os trabalhos de casa ajudam-me a entender melhor o conteúdo.</label>
                     <div class="options">
                         <label><input type="radio" name="ajuda_tarefas" value="1" required> 😞 1</label>
                         <label><input type="radio" name="ajuda_tarefas" value="2"> 🙁 2</label>
@@ -156,7 +175,7 @@
                         <label><input type="radio" name="ajuda_tarefas" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
+                <div class="question-box">
                     <label>Acho que as provas e avaliações são justas e mostram o que eu aprendi.</label>
                     <div class="options">
                         <label><input type="radio" name="avaliacoes_justas" value="1" required> 😞 1</label>
@@ -170,7 +189,7 @@
 
             <fieldset>
                 <legend>Parte 2: Sobre as Aulas e os Professores</legend>
-                 <div class="question">
+                 <div class="question-box">
                     <label>As aulas são interessantes e prendem a minha atenção.</label>
                     <div class="options">
                         <label><input type="radio" name="aulas_interessantes" value="1" required> 😞 1</label>
@@ -180,7 +199,7 @@
                         <label><input type="radio" name="aulas_interessantes" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
+                <div class="question-box">
                     <label>Sinto-me à vontade para fazer perguntas e tirar dúvidas com os professores.</label>
                     <div class="options">
                         <label><input type="radio" name="tirar_duvidas" value="1" required> 😞 1</label>
@@ -190,8 +209,8 @@
                         <label><input type="radio" name="tirar_duvidas" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
-                    <label>Sinto que os professores se importam de verdade se eu estou aprendendo.</label>
+                <div class="question-box">
+                    <label>Sinto que os professores se importam de verdade se eu estou a aprender.</label>
                     <div class="options">
                         <label><input type="radio" name="professores_se_importam" value="1" required> 😞 1</label>
                         <label><input type="radio" name="professores_se_importam" value="2"> 🙁 2</label>
@@ -204,7 +223,7 @@
 
             <fieldset>
                 <legend>Parte 3: Sobre o Ambiente da Talentos</legend>
-                <div class="question">
+                <div class="question-box">
                     <label>Eu gosto de vir para a Talentos.</label>
                     <div class="options">
                         <label><input type="radio" name="gosta_de_vir" value="1" required> 😞 1</label>
@@ -214,7 +233,7 @@
                         <label><input type="radio" name="gosta_de_vir" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
+                <div class="question-box">
                     <label>Sinto-me seguro(a) e respeitado(a) por colegas e funcionários.</label>
                     <div class="options">
                         <label><input type="radio" name="seguranca_respeito" value="1" required> 😞 1</label>
@@ -224,7 +243,7 @@
                         <label><input type="radio" name="seguranca_respeito" value="5"> 😄 5</label>
                     </div>
                 </div>
-                <div class="question">
+                <div class="question-box">
                     <label>A estrutura da escola (salas, pátio, biblioteca) é boa e bem cuidada.</label>
                     <div class="options">
                         <label><input type="radio" name="estrutura_escola" value="1" required> 😞 1</label>
@@ -238,93 +257,141 @@
             
             <fieldset>
                 <legend>Parte 4: Suas Ideias (As mais importantes!)</legend>
-                <div class="question-text">
+                <div class="question-box">
                     <label for="melhor">O que a Talentos faz de MELHOR e que não deveria mudar?</label>
-                    <textarea id="melhor" name="o_que_faz_melhor" rows="4" placeholder="Escreva sua resposta aqui..."></textarea>
+                    <textarea id="melhor" name="o_que_faz_melhor" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
                 </div>
-                <div class="question-text">
-                    <label for="mudar">Se você pudesse mudar UMA COISA para a Talentos ficar ainda melhor, o que seria?</label>
-                    <textarea id="mudar" name="o_que_mudar" rows="4" placeholder="Escreva sua resposta aqui..."></textarea>
+                <div class="question-box">
+                    <label for="mudar">Se pudesse mudar UMA COISA para a Talentos ficar ainda melhor, o que seria?</label>
+                    <textarea id="mudar" name="o_que_mudar" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
                 </div>
-                <div class="question-text">
-                    <label for="sugestoes">Deixe aqui qualquer outra sugestão ou comentário que você queira fazer:</label>
-                    <textarea id="sugestoes" name="outras_sugestoes" rows="4" placeholder="Escreva sua resposta aqui..."></textarea>
+                <div class="question-box">
+                    <label for="sugestoes">Deixe aqui qualquer outra sugestão ou comentário que queira fazer:</label>
+                    <textarea id="sugestoes" name="outras_sugestoes" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
                 </div>
             </fieldset>
 
-            <button type="submit">
+            <button type="submit" class="submit-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="white"><path d="M0 0h24v24H0z" fill="none"/><path d="M.01 21 23 12 .01 3 0 10l15 2-15 2z"/></svg>
                 Enviar via WhatsApp
             </button>
         </form>
 
-        <footer>
+        <footer class="survey-footer">
             <p>&copy; 2025 Talentos. Todos os direitos reservados.</p>
         </footer>
-    </div>
+    </main>
 
     <script>
-        document.getElementById('survey-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // Executa o script apenas quando o conteúdo da página estiver totalmente carregado.
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const surveyForm = document.getElementById('survey-form');
+            if (!surveyForm) return; // Encerra se o formulário não for encontrado
 
             // ===================================================================
-            // ATENÇÃO: Verifique esta linha com cuidado!
-            // O número precisa estar no formato: 55 (código do país) + XX (DDD) + NÚMERO (tudo junto).
+            // CONFIGURAÇÃO PRINCIPAL - ALTERE AQUI
+            // ===================================================================
+            // IMPORTANTE: O número precisa estar no formato internacional completo:
+            // 55 (código do país) + XX (DDD) + NÚMERO (tudo junto, sem espaços ou símbolos).
             // Exemplo para Paranaguá (DDD 41): '554134231010'
-            const numeroWpp = '55XX34231010'; 
+            const WHATSAPP_PHONE_NUMBER = '55XX34231010'; 
             // ===================================================================
 
-            const emojiMap = {
+            const EMOJI_MAP = {
                 '1': '😞 (Péssimo / Nunca)',
                 '2': '🙁 (Ruim / Pouco)',
                 '3': '😐 (Regular / Às vezes)',
                 '4': '🙂 (Bom / Quase Sempre)',
                 '5': '😄 (Excelente / Sempre)'
             };
+            
+            /**
+             * Função principal que lida com o evento de submissão do formulário.
+             * @param {Event} event O objeto do evento de submissão.
+             */
+            const handleFormSubmit = (event) => {
+                event.preventDefault(); // Previne o recarregamento da página
 
-            const formData = new FormData(event.target);
-            let mensagem = `📝 *Pesquisa de Experiência e Aprendizado – Alunos Talentos*\n\n`;
+                const formData = getSurveyData(surveyForm);
 
-            const getResposta = (name) => {
-                const valor = formData.get(name);
-                return valor ? emojiMap[valor] : 'Não respondido';
+                if (!formData) {
+                    alert('Por favor, responda a todas as perguntas obrigatórias (de 1 a 5) antes de enviar.');
+                    return;
+                }
+
+                const whatsappMessage = formatWhatsappMessage(formData);
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                const whatsappLink = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
+                
+                window.open(whatsappLink, '_blank');
             };
 
-            // Parte 1
-            mensagem += `*📚 Sobre o meu Aprendizado*\n`;
-            mensagem += `- Sinto que estou evoluindo: *${getResposta('aprendizado_evolucao')}*\n`;
-            mensagem += `- Entendo as explicações: *${getResposta('entendimento_explicacoes')}*\n`;
-            mensagem += `- As tarefas ajudam: *${getResposta('ajuda_tarefas')}*\n`;
-            mensagem += `- As avaliações são justas: *${getResposta('avaliacoes_justas')}*\n\n`;
+            /**
+             * Extrai os dados do formulário e valida as respostas obrigatórias.
+             * @param {HTMLFormElement} formElement O elemento do formulário.
+             * @returns {Object|null} Um objeto com os dados ou null se a validação falhar.
+             */
+            const getSurveyData = (formElement) => {
+                const formData = new FormData(formElement);
+                const data = {};
+                let isValid = true;
 
-            // Parte 2
-            mensagem += `*👨‍🏫 Sobre as Aulas e os Professores*\n`;
-            mensagem += `- As aulas são interessantes: *${getResposta('aulas_interessantes')}*\n`;
-            mensagem += `- Sinto-me à vontade para tirar dúvidas: *${getResposta('tirar_duvidas')}*\n`;
-            mensagem += `- Sinto que os professores se importam: *${getResposta('professores_se_importam')}*\n\n`;
+                // Converte FormData para um objeto simples
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
 
-            // Parte 3
-            mensagem += `*🏫 Sobre o Ambiente da Talentos*\n`;
-            mensagem += `- Gosto de vir para a Talentos: *${getResposta('gosta_de_vir')}*\n`;
-            mensagem += `- Sinto-me seguro e respeitado: *${getResposta('seguranca_respeito')}*\n`;
-            mensagem += `- A estrutura é boa: *${getResposta('estrutura_escola')}*\n\n`;
+                // Valida se todas as perguntas de rádio (obrigatórias) foram respondidas
+                const requiredQuestions = formElement.querySelectorAll('input[type="radio"][required]');
+                const questionGroups = new Set(Array.from(requiredQuestions, q => q.name));
 
-            // Parte 4
-            mensagem += `*💡 Minhas Ideias*\n`;
-            mensagem += `*O que a Talentos faz de MELHOR?*\n`;
-            mensagem += `${formData.get('o_que_faz_melhor') || 'Não preenchido'}\n\n`;
-            
-            mensagem += `*O que poderia MELHORAR?*\n`;
-            mensagem += `${formData.get('o_que_mudar') || 'Não preenchido'}\n\n`;
-            
-            mensagem += `*Outras sugestões:*\n`;
-            mensagem += `${formData.get('outras_sugestoes') || 'Não preenchido'}\n`;
+                for (const groupName of questionGroups) {
+                    if (!data[groupName]) {
+                        isValid = false;
+                        break;
+                    }
+                }
 
-            const mensagemCodificada = encodeURIComponent(mensagem);
-            const linkWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWpp}&text=${mensagemCodificada}`;
-            
-            // Abre o link do WhatsApp numa nova aba
-            window.open(linkWhatsApp, '_blank');
+                return isValid ? data : null;
+            };
+
+            /**
+             * Formata os dados da pesquisa numa mensagem de texto para o WhatsApp.
+             * @param {Object} data O objeto com os dados da pesquisa.
+             * @returns {string} A mensagem formatada.
+             */
+            const formatWhatsappMessage = (data) => {
+                const getAnswer = (key) => EMOJI_MAP[data[key]] || 'Não respondido';
+
+                let message = `📝 *Pesquisa de Experiência e Aprendizado – Alunos Talentos*\n\n`;
+
+                message += `*📚 Sobre o meu Aprendizado*\n`;
+                message += `- Sinto que estou evoluindo: *${getAnswer('aprendizado_evolucao')}*\n`;
+                message += `- Entendo as explicações: *${getAnswer('entendimento_explicacoes')}*\n`;
+                message += `- As tarefas ajudam: *${getAnswer('ajuda_tarefas')}*\n`;
+                message += `- As avaliações são justas: *${getAnswer('avaliacoes_justas')}*\n\n`;
+
+                message += `*👨‍🏫 Sobre as Aulas e os Professores*\n`;
+                message += `- As aulas são interessantes: *${getAnswer('aulas_interessantes')}*\n`;
+                message += `- Sinto-me à vontade para tirar dúvidas: *${getAnswer('tirar_duvidas')}*\n`;
+                message += `- Sinto que os professores se importam: *${getAnswer('professores_se_importam')}*\n\n`;
+
+                message += `*🏫 Sobre o Ambiente da Talentos*\n`;
+                message += `- Gosto de vir para a Talentos: *${getAnswer('gosta_de_vir')}*\n`;
+                message += `- Sinto-me seguro e respeitado: *${getAnswer('seguranca_respeito')}*\n`;
+                message += `- A estrutura é boa: *${getAnswer('estrutura_escola')}*\n\n`;
+
+                message += `*💡 Minhas Ideias*\n`;
+                message += `*O que a Talentos faz de MELHOR?*\n${data['o_que_faz_melhor'] || 'Não preenchido'}\n\n`;
+                message += `*O que poderia MELHORAR?*\n${data['o_que_mudar'] || 'Não preenchido'}\n\n`;
+                message += `*Outras sugestões:*\n${data['outras_sugestoes'] || 'Não preenchido'}\n`;
+
+                return message;
+            };
+
+            // Adiciona o listener de evento ao formulário
+            surveyForm.addEventListener('submit', handleFormSubmit);
         });
     </script>
 </body>
