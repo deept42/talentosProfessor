@@ -12,8 +12,8 @@
         /* Configurações Globais */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0; /* Fundo cinza claro */
-            color: #333333; /* Texto principal cinza escuro */
+            background-color: #f0f0f0;
+            color: #333333;
             margin: 0;
             padding: 20px;
             line-height: 1.6;
@@ -23,113 +23,72 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #ffffff; /* Fundo do conteúdo branco */
+            background-color: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         /* Cabeçalho */
-        header {
-            text-align: center;
-            border-bottom: 2px solid #e0e0e0; /* Borda cinza */
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            max-width: 240px;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            color: #006400; /* Título principal em VERDE ESCURO */
-            font-size: 2em;
-            font-weight: 700;
-        }
-
-        header p {
-            font-size: 1.1em;
-            color: #555555; /* Texto do cabeçalho em cinza */
-        }
-
-        .anonymous strong {
-            color: #d9534f;
-        }
+        header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 20px; margin-bottom: 20px; }
+        .logo { max-width: 240px; margin-bottom: 20px; }
+        header h1 { color: #006400; font-size: 2em; font-weight: 700; }
+        header p { font-size: 1.1em; color: #555555; }
+        .anonymous strong { color: #d9534f; }
 
         /* Instruções e Legenda */
-        .instructions {
-            text-align: center;
-            background-color: #f8f8f8; /* Fundo das instruções em cinza bem claro */
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
+        .instructions { text-align: center; background-color: #f8f8f8; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
         .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 10px; font-size: 0.9em; }
         .legend span { background-color: #fff; padding: 5px 10px; border-radius: 20px; border: 1px solid #ddd; }
         
         /* Formulário e Seções */
         form { width: 100%; }
         fieldset { border: none; padding: 0; margin-bottom: 25px; }
-        legend {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: #006400; /* Títulos de seção em VERDE ESCURO */
-            margin-bottom: 20px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #006400; /* Borda da seção em VERDE ESCURO */
-            width: 100%;
-        }
+        legend { font-size: 1.5em; font-weight: 600; color: #006400; margin-bottom: 20px; padding-bottom: 5px; border-bottom: 2px solid #006400; width: 100%; }
 
-        /* Estilo das Perguntas - REMOVIDO A BORDA LATERAL VERDE */
-        .question, .question-text {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #e0e0e0; /* Borda sutil cinza ao invés da verde lateral */
-        }
+        /* Estilo das Perguntas */
+        .question, .question-text { background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e0e0; }
         .question label, .question-text label { display: block; font-weight: 600; margin-bottom: 15px; color: #333; }
         .options { display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
-        .options label {
-            cursor: pointer;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            transition: all 0.2s ease-in-out;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .options label:hover {
-            background-color: #e9e9e9;
-            transform: translateY(-2px);
-        }
-
-        .options label:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 12px rgba(0, 100, 0, 0.5);
-        }
-
+        .options label { cursor: pointer; padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; background-color: #fff; transition: all 0.2s ease-in-out; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
+        .options label:hover { background-color: #e9e9e9; transform: translateY(-2px); }
+        .options label:active { transform: scale(0.95); box-shadow: 0 0 12px rgba(0, 100, 0, 0.5); }
         .options input[type="radio"] { display: none; }
         
-        .options input[type="radio"]:checked + label {
-            background-color: #006400;
+        /* Estilos de cores progressivas para opções marcadas */
+        .options input[value="1"]:checked + label {
+            background-color: #e74c3c; /* Vermelho */
             color: white;
-            border-color: #004d00;
-            font-weight: bold;
+            border-color: #c0392b;
             transform: scale(1.05);
         }
-        
-        textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 1em; box-sizing: border-box; }
-        
-        textarea:focus {
-            outline: none;
-            border-color: #006400;
-            box-shadow: 0 0 5px rgba(0, 100, 0, 0.5);
+        .options input[value="2"]:checked + label {
+            background-color: #e67e22; /* Laranja */
+            color: white;
+            border-color: #d35400;
+            transform: scale(1.05);
         }
+        .options input[value="3"]:checked + label {
+            background-color: #f1c40f; /* Amarelo */
+            color: #333; /* Texto escuro para legibilidade */
+            border-color: #f39c12;
+            transform: scale(1.05);
+        }
+        .options input[value="4"]:checked + label {
+            background-color: #a3d900; /* Verde Claro */
+            color: #333; /* Texto escuro para legibilidade */
+            border-color: #82a832;
+            transform: scale(1.05);
+        }
+        .options input[value="5"]:checked + label {
+            background-color: #2ecc71; /* Verde */
+            color: white;
+            border-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 1em; box-sizing: border-box; }
+        textarea:focus { outline: none; border-color: #006400; box-shadow: 0 0 5px rgba(0, 100, 0, 0.5); }
 
         button[type="submit"] { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; font-size: 1.2em; font-weight: 600; color: #fff; background-color: #25D366; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; margin-top: 20px; }
         button[type="submit"]:hover { background-color: #1DA851; }
@@ -148,7 +107,6 @@
     <div class="container">
         <header>
             <img src="https://talentosbrasil.com.br/img/logotipo/logotipo.png" alt="Logotipo Talentos" class="logo">
-            
             <h1>Pesquisa de Experiência e Aprendizado – Alunos Talentos</h1>
             <p>Olá! Sua opinião é muito importante para nós. Queremos saber como está sendo sua experiência na Talentos para podermos melhorar cada vez mais.</p>
             <p class="anonymous"><strong>Suas respostas são anônimas!</strong></p>
@@ -310,7 +268,8 @@
             event.preventDefault();
 
             // ===================================================================
-            // IMPORTANTE: Altere o XX para o DDD correto da sua região.
+            // ATENÇÃO: Verifique esta linha com cuidado!
+            // O número precisa estar no formato: 55 (código do país) + XX (DDD) + NÚMERO (tudo junto).
             // Exemplo para Paranaguá (DDD 41): '554134231010'
             const numeroWpp = '55XX34231010'; 
             // ===================================================================
@@ -364,6 +323,7 @@
             const mensagemCodificada = encodeURIComponent(mensagem);
             const linkWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWpp}&text=${mensagemCodificada}`;
             
+            // Abre o link do WhatsApp numa nova aba
             window.open(linkWhatsApp, '_blank');
         });
     </script>
