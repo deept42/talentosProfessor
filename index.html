@@ -18,7 +18,7 @@
             --color-border: #e0e0e0;
             --font-main: 'Poppins', sans-serif;
             
-            --color-rating-0: #cccccc; /* Cinza para a nova opção */
+            --color-rating-0: #cccccc;
             --color-rating-1: #e74c3c;
             --color-rating-2: #e67e22;
             --color-rating-3: #f1c40f;
@@ -55,11 +55,14 @@
         .question-box .question-title { display: block; font-weight: 600; margin-bottom: 15px; }
         
         .options { display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
-        .options label { cursor: pointer; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--color-border); background-color: var(--color-background-container); transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
+        .options label { cursor: pointer; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--color-border); background-color: var(--color-background-container); transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.3s ease; font-size: 1.2em; display: flex; align-items: center; gap: 8px; }
         .options label:hover { transform: translateY(-3px); }
         .options label:active { transform: scale(0.95); box-shadow: 0 0 12px rgba(0, 100, 0, 0.5); }
         .options input[type="radio"] { display: none; }
         
+        .options.selection-made label { opacity: 0.5; }
+        .options.selection-made input[type="radio"]:checked + label { opacity: 1; }
+
         .options input[value="0"]:checked + label { background-color: var(--color-rating-0); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
         .options input[value="1"]:checked + label { background-color: var(--color-rating-1); color: white; border-color: transparent; transform: scale(1.05); }
         .options input[value="2"]:checked + label { background-color: var(--color-rating-2); color: white; border-color: transparent; transform: scale(1.05); }
@@ -257,7 +260,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
             const surveyForm = document.getElementById('survey-form');
             if (!surveyForm) {
                 console.error("Erro Crítico: Formulário com ID 'survey-form' não encontrado.");
@@ -275,6 +277,39 @@
                 '5': '😄 (Excelente / Sempre)'
             };
             
+            const setupRadioInteractivity = () => {
+                const radioGroups = {};
+                surveyForm.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    if (!radioGroups[radio.name]) radioGroups[radio.name] = [];
+                    radioGroups[radio.name].push(radio);
+                });
+
+                const updateVisuals = (group) => {
+                    const container = group[0].closest('.options');
+                    if (!container) return;
+                    const isAnyChecked = group.some(radio => radio.checked);
+                    container.classList.toggle('selection-made', isAnyChecked);
+                };
+
+                Object.values(radioGroups).forEach(group => {
+                    let lastChecked = group.find(radio => radio.checked) || null;
+                    
+                    group.forEach(radio => {
+                        radio.addEventListener('click', () => {
+                            if (radio === lastChecked) {
+                                radio.checked = false;
+                                lastChecked = null;
+                            } else {
+                                lastChecked = radio;
+                            }
+                            updateVisuals(group);
+                        });
+                    });
+                    
+                    updateVisuals(group);
+                });
+            };
+
             const handleFormSubmit = (event) => {
                 event.preventDefault();
 
@@ -314,6 +349,7 @@
                        `*Outras sugestões:*\n${formData.get('outras_sugestoes') || 'Não preenchido'}\n`;
             };
 
+            setupRadioInteractivity();
             surveyForm.addEventListener('submit', handleFormSubmit);
         });
     </script>
