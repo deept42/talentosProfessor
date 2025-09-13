@@ -18,6 +18,7 @@
             --color-border: #e0e0e0;
             --font-main: 'Poppins', sans-serif;
             
+            --color-rating-0: #cccccc; /* Cinza para a nova opção */
             --color-rating-1: #e74c3c;
             --color-rating-2: #e67e22;
             --color-rating-3: #f1c40f;
@@ -59,6 +60,7 @@
         .options label:active { transform: scale(0.95); box-shadow: 0 0 12px rgba(0, 100, 0, 0.5); }
         .options input[type="radio"] { display: none; }
         
+        .options input[value="0"]:checked + label { background-color: var(--color-rating-0); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
         .options input[value="1"]:checked + label { background-color: var(--color-rating-1); color: white; border-color: transparent; transform: scale(1.05); }
         .options input[value="2"]:checked + label { background-color: var(--color-rating-2); color: white; border-color: transparent; transform: scale(1.05); }
         .options input[value="3"]:checked + label { background-color: var(--color-rating-3); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
@@ -94,6 +96,7 @@
         <section class="instructions">
             <p>Para cada pergunta, escolha a nota que melhor representa a sua opinião, usando os emojis como guia:</p>
             <div class="legend">
+                <span><strong>0</strong> = 🤔 (Não Sei / Não Tem)</span>
                 <span><strong>1</strong> = 😞 (Péssimo / Nunca)</span>
                 <span><strong>2</strong> = 🙁 (Ruim / Pouco)</span>
                 <span><strong>3</strong> = 😐 (Regular / Às vezes)</span>
@@ -108,7 +111,8 @@
                 <div class="question-box">
                     <span class="question-title">Sinto que estou realmente a aprender e a evoluir nas matérias.</span>
                     <div class="options">
-                        <input type="radio" name="aprendizado_evolucao" value="1" id="q1-1" required><label for="q1-1">😞 1</label>
+                        <input type="radio" name="aprendizado_evolucao" value="0" id="q1-0" required><label for="q1-0">🤔 0</label>
+                        <input type="radio" name="aprendizado_evolucao" value="1" id="q1-1"><label for="q1-1">😞 1</label>
                         <input type="radio" name="aprendizado_evolucao" value="2" id="q1-2"><label for="q1-2">🙁 2</label>
                         <input type="radio" name="aprendizado_evolucao" value="3" id="q1-3"><label for="q1-3">😐 3</label>
                         <input type="radio" name="aprendizado_evolucao" value="4" id="q1-4"><label for="q1-4">🙂 4</label>
@@ -118,7 +122,8 @@
                 <div class="question-box">
                     <span class="question-title">Consigo entender bem as explicações dos professores na sala de aula.</span>
                     <div class="options">
-                        <input type="radio" name="entendimento_explicacoes" value="1" id="q2-1" required><label for="q2-1">😞 1</label>
+                        <input type="radio" name="entendimento_explicacoes" value="0" id="q2-0" required><label for="q2-0">🤔 0</label>
+                        <input type="radio" name="entendimento_explicacoes" value="1" id="q2-1"><label for="q2-1">😞 1</label>
                         <input type="radio" name="entendimento_explicacoes" value="2" id="q2-2"><label for="q2-2">🙁 2</label>
                         <input type="radio" name="entendimento_explicacoes" value="3" id="q2-3"><label for="q2-3">😐 3</label>
                         <input type="radio" name="entendimento_explicacoes" value="4" id="q2-4"><label for="q2-4">🙂 4</label>
@@ -128,7 +133,8 @@
                 <div class="question-box">
                     <span class="question-title">As tarefas e os trabalhos de casa ajudam-me a entender melhor o conteúdo.</span>
                     <div class="options">
-                        <input type="radio" name="ajuda_tarefas" value="1" id="q3-1" required><label for="q3-1">😞 1</label>
+                        <input type="radio" name="ajuda_tarefas" value="0" id="q3-0" required><label for="q3-0">🤔 0</label>
+                        <input type="radio" name="ajuda_tarefas" value="1" id="q3-1"><label for="q3-1">😞 1</label>
                         <input type="radio" name="ajuda_tarefas" value="2" id="q3-2"><label for="q3-2">🙁 2</label>
                         <input type="radio" name="ajuda_tarefas" value="3" id="q3-3"><label for="q3-3">😐 3</label>
                         <input type="radio" name="ajuda_tarefas" value="4" id="q3-4"><label for="q3-4">🙂 4</label>
@@ -138,7 +144,8 @@
                 <div class="question-box">
                     <span class="question-title">Acho que as provas e avaliações são justas e mostram o que eu aprendi.</span>
                     <div class="options">
-                        <input type="radio" name="avaliacoes_justas" value="1" id="q4-1" required><label for="q4-1">😞 1</label>
+                        <input type="radio" name="avaliacoes_justas" value="0" id="q4-0" required><label for="q4-0">🤔 0</label>
+                        <input type="radio" name="avaliacoes_justas" value="1" id="q4-1"><label for="q4-1">😞 1</label>
                         <input type="radio" name="avaliacoes_justas" value="2" id="q4-2"><label for="q4-2">🙁 2</label>
                         <input type="radio" name="avaliacoes_justas" value="3" id="q4-3"><label for="q4-3">😐 3</label>
                         <input type="radio" name="avaliacoes_justas" value="4" id="q4-4"><label for="q4-4">🙂 4</label>
@@ -152,7 +159,8 @@
                  <div class="question-box">
                     <span class="question-title">As aulas são interessantes e prendem a minha atenção.</span>
                     <div class="options">
-                        <input type="radio" name="aulas_interessantes" value="1" id="q5-1" required><label for="q5-1">😞 1</label>
+                        <input type="radio" name="aulas_interessantes" value="0" id="q5-0" required><label for="q5-0">🤔 0</label>
+                        <input type="radio" name="aulas_interessantes" value="1" id="q5-1"><label for="q5-1">😞 1</label>
                         <input type="radio" name="aulas_interessantes" value="2" id="q5-2"><label for="q5-2">🙁 2</label>
                         <input type="radio" name="aulas_interessantes" value="3" id="q5-3"><label for="q5-3">😐 3</label>
                         <input type="radio" name="aulas_interessantes" value="4" id="q5-4"><label for="q5-4">🙂 4</label>
@@ -162,7 +170,8 @@
                 <div class="question-box">
                     <span class="question-title">Sinto-me à vontade para fazer perguntas e tirar dúvidas com os professores.</span>
                     <div class="options">
-                        <input type="radio" name="tirar_duvidas" value="1" id="q6-1" required><label for="q6-1">😞 1</label>
+                        <input type="radio" name="tirar_duvidas" value="0" id="q6-0" required><label for="q6-0">🤔 0</label>
+                        <input type="radio" name="tirar_duvidas" value="1" id="q6-1"><label for="q6-1">😞 1</label>
                         <input type="radio" name="tirar_duvidas" value="2" id="q6-2"><label for="q6-2">🙁 2</label>
                         <input type="radio" name="tirar_duvidas" value="3" id="q6-3"><label for="q6-3">😐 3</label>
                         <input type="radio" name="tirar_duvidas" value="4" id="q6-4"><label for="q6-4">🙂 4</label>
@@ -172,7 +181,8 @@
                 <div class="question-box">
                     <span class="question-title">Sinto que os professores se importam de verdade se eu estou a aprender.</span>
                     <div class="options">
-                        <input type="radio" name="professores_se_importam" value="1" id="q7-1" required><label for="q7-1">😞 1</label>
+                        <input type="radio" name="professores_se_importam" value="0" id="q7-0" required><label for="q7-0">🤔 0</label>
+                        <input type="radio" name="professores_se_importam" value="1" id="q7-1"><label for="q7-1">😞 1</label>
                         <input type="radio" name="professores_se_importam" value="2" id="q7-2"><label for="q7-2">🙁 2</label>
                         <input type="radio" name="professores_se_importam" value="3" id="q7-3"><label for="q7-3">😐 3</label>
                         <input type="radio" name="professores_se_importam" value="4" id="q7-4"><label for="q7-4">🙂 4</label>
@@ -186,7 +196,8 @@
                 <div class="question-box">
                     <span class="question-title">Eu gosto de vir para a Talentos.</span>
                     <div class="options">
-                        <input type="radio" name="gosta_de_vir" value="1" id="q8-1" required><label for="q8-1">😞 1</label>
+                        <input type="radio" name="gosta_de_vir" value="0" id="q8-0" required><label for="q8-0">🤔 0</label>
+                        <input type="radio" name="gosta_de_vir" value="1" id="q8-1"><label for="q8-1">😞 1</label>
                         <input type="radio" name="gosta_de_vir" value="2" id="q8-2"><label for="q8-2">🙁 2</label>
                         <input type="radio" name="gosta_de_vir" value="3" id="q8-3"><label for="q8-3">😐 3</label>
                         <input type="radio" name="gosta_de_vir" value="4" id="q8-4"><label for="q8-4">🙂 4</label>
@@ -196,7 +207,8 @@
                 <div class="question-box">
                     <span class="question-title">Sinto-me seguro(a) e respeitado(a) por colegas e funcionários.</span>
                     <div class="options">
-                        <input type="radio" name="seguranca_respeito" value="1" id="q9-1" required><label for="q9-1">😞 1</label>
+                        <input type="radio" name="seguranca_respeito" value="0" id="q9-0" required><label for="q9-0">🤔 0</label>
+                        <input type="radio" name="seguranca_respeito" value="1" id="q9-1"><label for="q9-1">😞 1</label>
                         <input type="radio" name="seguranca_respeito" value="2" id="q9-2"><label for="q9-2">🙁 2</label>
                         <input type="radio" name="seguranca_respeito" value="3" id="q9-3"><label for="q9-3">😐 3</label>
                         <input type="radio" name="seguranca_respeito" value="4" id="q9-4"><label for="q9-4">🙂 4</label>
@@ -206,7 +218,8 @@
                 <div class="question-box">
                     <span class="question-title">A estrutura da escola (salas, pátio, biblioteca) é boa e bem cuidada.</span>
                     <div class="options">
-                        <input type="radio" name="estrutura_escola" value="1" id="q10-1" required><label for="q10-1">😞 1</label>
+                        <input type="radio" name="estrutura_escola" value="0" id="q10-0" required><label for="q10-0">🤔 0</label>
+                        <input type="radio" name="estrutura_escola" value="1" id="q10-1"><label for="q10-1">😞 1</label>
                         <input type="radio" name="estrutura_escola" value="2" id="q10-2"><label for="q10-2">🙁 2</label>
                         <input type="radio" name="estrutura_escola" value="3" id="q10-3"><label for="q10-3">😐 3</label>
                         <input type="radio" name="estrutura_escola" value="4" id="q10-4"><label for="q10-4">🙂 4</label>
@@ -254,15 +267,19 @@
             const WHATSAPP_PHONE_NUMBER = '554134231010'; 
 
             const EMOJI_MAP = {
-                '1': '😞 (Péssimo / Nunca)', '2': '🙁 (Ruim / Pouco)', '3': '😐 (Regular / Às vezes)',
-                '4': '🙂 (Bom / Quase Sempre)', '5': '😄 (Excelente / Sempre)'
+                '0': '🤔 (Não Sei / Não Tem)',
+                '1': '😞 (Péssimo / Nunca)', 
+                '2': '🙁 (Ruim / Pouco)', 
+                '3': '😐 (Regular / Às vezes)',
+                '4': '🙂 (Bom / Quase Sempre)', 
+                '5': '😄 (Excelente / Sempre)'
             };
             
             const handleFormSubmit = (event) => {
                 event.preventDefault();
 
                 if (!surveyForm.checkValidity()) {
-                    alert('Por favor, responda a todas as perguntas de 1 a 5 antes de enviar.');
+                    alert('Por favor, responda a todas as perguntas de 0 a 5 antes de enviar.');
                     return;
                 }
 
