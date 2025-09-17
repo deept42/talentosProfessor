@@ -63,12 +63,15 @@
         .options.selection-made label { opacity: 0.5; }
         .options.selection-made input[type="radio"]:checked + label { opacity: 1; }
 
-        .options input[value="0"]:checked + label { background-color: var(--color-rating-0); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
-        .options input[value="1"]:checked + label { background-color: var(--color-rating-1); color: white; border-color: transparent; transform: scale(1.05); }
+        .options input[value="0"]:checked + label,
+        .options input[value="talvez"]:checked + label { background-color: var(--color-rating-3); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
+        .options input[value="1"]:checked + label,
+        .options input[value="nao"]:checked + label { background-color: var(--color-rating-1); color: white; border-color: transparent; transform: scale(1.05); }
         .options input[value="2"]:checked + label { background-color: var(--color-rating-2); color: white; border-color: transparent; transform: scale(1.05); }
         .options input[value="3"]:checked + label { background-color: var(--color-rating-3); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
         .options input[value="4"]:checked + label { background-color: var(--color-rating-4); color: var(--color-text-primary); border-color: transparent; transform: scale(1.05); }
-        .options input[value="5"]:checked + label { background-color: var(--color-rating-5); color: white; border-color: transparent; transform: scale(1.05); }
+        .options input[value="5"]:checked + label,
+        .options input[value="sim"]:checked + label { background-color: var(--color-rating-5); color: white; border-color: transparent; transform: scale(1.05); }
 
         textarea { width: 100%; padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; font-family: var(--font-main); font-size: 1em; }
         textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 5px rgba(0, 100, 0, 0.5); }
@@ -232,18 +235,37 @@
             </fieldset>
             
             <fieldset>
-                <legend>Parte 4: Suas Ideias (As mais importantes!)</legend>
+                <legend>Parte 4: Suas Ideias</legend>
                 <div class="question-box">
-                    <label for="melhor">O que a Talentos faz de MELHOR e que não deveria mudar?</label>
-                    <textarea id="melhor" name="o_que_faz_melhor" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
+                    <label for="melhor">O que você acha mais positivo na Talentos?</label>
+                    <textarea id="melhor" name="pontos_positivos" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
                 </div>
                 <div class="question-box">
-                    <label for="mudar">Se pudesse mudar UMA COISA para a Talentos ficar ainda melhor, o que seria?</label>
-                    <textarea id="mudar" name="o_que_mudar" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
+                    <label for="mudar">Como você acha que a Talentos pode melhorar?</label>
+                    <textarea id="mudar" name="pontos_melhorar" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Parte 5: Opinião Geral</legend>
+                <div class="question-box">
+                    <span class="question-title">Você recomendaria a Talentos para um amigo?</span>
+                    <div class="options">
+                        <input type="radio" name="recomendaria_amigo" value="sim" id="q11-sim" required><label for="q11-sim">😄 Sim</label>
+                        <input type="radio" name="recomendaria_amigo" value="talvez" id="q11-talvez"><label for="q11-talvez">😐 Talvez</label>
+                        <input type="radio" name="recomendaria_amigo" value="nao" id="q11-nao"><label for="q11-nao">😞 Não</label>
+                    </div>
                 </div>
                 <div class="question-box">
-                    <label for="sugestoes">Deixe aqui qualquer outra sugestão ou comentário que queira fazer:</label>
-                    <textarea id="sugestoes" name="outras_sugestoes" rows="4" placeholder="Escreva a sua resposta aqui..."></textarea>
+                    <span class="question-title">As aulas atenderam às suas expectativas?</span>
+                    <div class="options">
+                        <input type="radio" name="atenderam_expectativas" value="0" id="q12-0" required><label for="q12-0">🤔 0</label>
+                        <input type="radio" name="atenderam_expectativas" value="1" id="q12-1"><label for="q12-1">😞 1</label>
+                        <input type="radio" name="atenderam_expectativas" value="2" id="q12-2"><label for="q12-2">🙁 2</label>
+                        <input type="radio" name="atenderam_expectativas" value="3" id="q12-3"><label for="q12-3">😐 3</label>
+                        <input type="radio" name="atenderam_expectativas" value="4" id="q12-4"><label for="q12-4">🙂 4</label>
+                        <input type="radio" name="atenderam_expectativas" value="5" id="q12-5"><label for="q12-5">😄 5</label>
+                    </div>
                 </div>
             </fieldset>
 
@@ -274,7 +296,10 @@
                 '2': '🙁 (Ruim / Pouco)', 
                 '3': '😐 (Regular / Às vezes)',
                 '4': '🙂 (Bom / Quase Sempre)', 
-                '5': '😄 (Excelente / Sempre)'
+                '5': '😄 (Excelente / Sempre)',
+                'sim': '😄 Sim',
+                'nao': '😞 Não',
+                'talvez': '😐 Talvez'
             };
             
             const setupRadioInteractivity = () => {
@@ -314,7 +339,7 @@
                 event.preventDefault();
 
                 if (!surveyForm.checkValidity()) {
-                    alert('Por favor, responda a todas as perguntas de 0 a 5 antes de enviar.');
+                    alert('Por favor, responda a todas as perguntas obrigatórias antes de enviar.');
                     return;
                 }
 
@@ -343,10 +368,12 @@
                        `- Gosto de vir para a Talentos: *${getAnswer('gosta_de_vir')}*\n` +
                        `- Sinto-me seguro e respeitado: *${getAnswer('seguranca_respeito')}*\n` +
                        `- A estrutura é boa: *${getAnswer('estrutura_escola')}*\n\n` +
+                       `*⭐ Opinião Geral*\n` +
+                       `- Recomendaria a um amigo: *${getAnswer('recomendaria_amigo')}*\n` +
+                       `- As aulas atenderam às expectativas: *${getAnswer('atenderam_expectativas')}*\n\n` +
                        `*💡 Minhas Ideias*\n` +
-                       `*O que a Talentos faz de MELHOR?*\n${formData.get('o_que_faz_melhor') || 'Não preenchido'}\n\n` +
-                       `*O que poderia MELHORAR?*\n${formData.get('o_que_mudar') || 'Não preenchido'}\n\n` +
-                       `*Outras sugestões:*\n${formData.get('outras_sugestoes') || 'Não preenchido'}\n`;
+                       `*Pontos Positivos:*\n${formData.get('pontos_positivos') || 'Não preenchido'}\n\n` +
+                       `*Pontos a Melhorar:*\n${formData.get('pontos_melhorar') || 'Não preenchido'}\n`;
             };
 
             setupRadioInteractivity();
